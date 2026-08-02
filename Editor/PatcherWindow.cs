@@ -103,18 +103,18 @@ namespace Rogue.UnityProjectPatcher.Editor {
             }
 
 #if UNITY_2020_3_OR_NEWER
-            var currentBepInExVersion = packages.FirstOrDefault(x => x.name == "com.nomnom.unity-project-patcher-bepinex")?.version;
-            var bepinexGit = "https://github.com/nomnomab/unity-project-patcher-bepinex";
+            var currentBepInExVersion = packages.FirstOrDefault(x => x.name == "com.rogue.unity-project-patcher-bepinex")?.version;
+            var bepinexGit = "https://github.com/Rogue-source/unity-project-patcher-bepinex";
             if (!string.IsNullOrEmpty(currentBepInExVersion) && PatcherUtility.TryFetchGitVersion(bepinexGit, out var bepinexVersion)) {
                 yield return new PackageVersion("BepInEx", bepinexGit, currentBepInExVersion, bepinexVersion);
                     
                 if (currentBepInExVersion != bepinexVersion) {
-                    Debug.LogWarning($"[com.nomnom.unity-project-patcher-bepinex] is <color=yellow>outdated</color>. Please open the patcher window to update to {bepinexVersion} from \"{bepinexGit}\". Current version: {currentBepInExVersion}.");
+                    Debug.LogWarning($"[com.rogue.unity-project-patcher-bepinex] is <color=yellow>outdated</color>. Please open the patcher window to update to {bepinexVersion} from \"{bepinexGit}\". Current version: {currentBepInExVersion}.");
                 } else {
-                    //Debug.Log($"[com.nomnom.unity-project-patcher-bepinex] is up to date. Current version: {currentBepInExVersion}.");
+                    //Debug.Log($"[com.rogue.unity-project-patcher-bepinex] is up to date. Current version: {currentBepInExVersion}.");
                 }
             } else {
-                Debug.LogWarning($"Failed to fetch [com.nomnom.unity-project-patcher-bepinex] version from \"{bepinexGit}\".");
+                Debug.LogWarning($"Failed to fetch [com.rogue.unity-project-patcher-bepinex] version from \"{bepinexGit}\".");
             }
 #endif
             
@@ -123,7 +123,7 @@ namespace Rogue.UnityProjectPatcher.Editor {
                 var gamePackage = packages.FirstOrDefault(x => x.name == packageName);
                 var gameRepo = gamePackage.packageId;
                 if (string.IsNullOrEmpty(gameRepo) || !gameRepo.Contains('@')) {
-                    Debug.LogWarning($"[com.nomnom.unity-project-patcher-bepinex] failed to get gamepackage or repository.");
+                    Debug.LogWarning($"[com.rogue.unity-project-patcher-bepinex] failed to get gamepackage or repository.");
                 } else if (gamePackage != null) {
                     var gameGit = gameRepo.Split('@')[1];
                     if (gameGit.EndsWith(".git")) {
@@ -158,7 +158,7 @@ namespace Rogue.UnityProjectPatcher.Editor {
             _gameWrapperVersion = gameVersion;
 
             // check packages
-            _hasBepInExPackage = _packageCollection.Any(x => x.name == "com.nomnom.unity-project-patcher-bepinex");
+            _hasBepInExPackage = _packageCollection.Any(x => x.name == "com.rogue.unity-project-patcher-bepinex");
             _hasBepInExFlag = PatcherUtility.GetScriptingDefineSymbols().Contains("ENABLE_BEPINEX");
             _foundPackageAttribute = PatcherUtility.GetGameWrapperAttribute();
             // _hasGameWrapperPackage = false;
@@ -347,7 +347,7 @@ namespace Rogue.UnityProjectPatcher.Editor {
                         
                         EditorUtility.DisplayProgressBar("Installing...", "Installing BepInEx...", 0.5f);
                         
-                        var request = Client.Add("https://github.com/nomnomab/unity-project-patcher-bepinex.git");
+                        var request = Client.Add("https://github.com/Rogue-source/unity-project-patcher-bepinex.git");
                         while (!request.IsCompleted) { }
                         if (request.Status == StatusCode.Success) {
                             EditorUtility.DisplayDialog("Success!", "BepInEx was installed successfully!", "OK");
