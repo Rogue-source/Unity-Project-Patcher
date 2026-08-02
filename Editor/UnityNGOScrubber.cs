@@ -52,7 +52,7 @@ public static class UnityNGOScrubber
 						if (!identifier.Text.StartsWith("InitializeRPCS_"))
 						{
 							identifier = m.Identifier;
-							return (identifier.Text.StartsWith("__rpc_handler_");
+							return identifier.Text.StartsWith("__rpc_handler_");
 						}
 					}
 				}
