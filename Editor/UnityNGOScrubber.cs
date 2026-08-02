@@ -394,11 +394,10 @@ public static class UnityNGOScrubber
 		if (val.HasValue)
 		{
 			SyntaxList<StatementSyntax> valueOrDefault = val.GetValueOrDefault();
-			Enumerator<StatementSyntax> enumerator = valueOrDefault.GetEnumerator();
-			while (enumerator.MoveNext())
+
+		foreach (StatementSyntax current in valueOrDefault)
 			{
-				StatementSyntax current = enumerator.Current;
-				log("[info] Rpc statement is " + ((object)current).GetType().FullName + ": " + ((SyntaxNode)current).ToFullString());
+				log("[info] Rpc statement is " + current.GetType().FullName + ": " + current.ToFullString());
 			}
 			StatementSyntax[] array;
 			if (valueOrDefault.Count > 2)

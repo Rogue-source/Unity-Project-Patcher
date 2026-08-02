@@ -38,10 +38,10 @@ public static class ScriptCloner
 					continue;
 				}
 				SyntaxTokenList modifiers = ((MemberDeclarationSyntax)val3).Modifiers;
-				bool flag2 = ((IEnumerable<SyntaxToken>)(object)modifiers).Any((SyntaxToken x) => (int)CSharpExtensions.Kind(x) == 8343);
-				bool flag3 = !((IEnumerable<SyntaxToken>)(object)modifiers).Any((SyntaxToken x) => (int)CSharpExtensions.Kind(x) == 8356);
-				bool flag4 = !((IEnumerable<SyntaxToken>)(object)modifiers).Any((SyntaxToken x) => (int)CSharpExtensions.Kind(x) == 8347);
-				if (!flag2 || !flag3 || !flag4)
+				bool isPublic = modifiers.Any(x => x.IsKind(SyntaxKind.PublicKeyword));
+				bool isNotStatic = !modifiers.Any(x => x.IsKind(SyntaxKind.StaticKeyword));
+				bool isNotPartial = !modifiers.Any(x => x.IsKind(SyntaxKind.PartialKeyword));
+				if (!isPublic || !isNotStatic || !isNotPartial)
 				{
 					list2.Add(text);
 					continue;
@@ -64,7 +64,7 @@ public static class ScriptCloner
 				ClassDeclarationSyntax[] array2 = array;
 				foreach (ClassDeclarationSyntax val5 in array2)
 				{
-					INamedTypeSymbol symbol = CSharpExtensions.GetDeclaredSymbol(semanticModel, (BaseTypeDeclarationSyntax)(object)val5, default(CancellationToken));
+					INamedTypeSymbol? symbol = semanticModel.GetDeclaredSymbol(val5);
 					if (symbol != null && supportedTypes.Where((string x) => !x.StartsWith("I")).Any((string x) => InheritsFromType((ITypeSymbol?)(object)symbol, x)))
 					{
 						log(((object)((BaseTypeDeclarationSyntax)val5).Identifier/*cast due to constrained. prefix*/).ToString());
