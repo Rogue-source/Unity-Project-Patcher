@@ -1,0 +1,20 @@
+{
+  "name": "com.rogue.unity-project-patcher",
+  "version": "1.0.0",
+  "displayName": "Unity Project Patcher",
+  "description": "A tool that generates a Unity project from a game build that can be playable in-editor",
+  "unity": "6000.3",
+  "unityRelease": "5f2",
+  "licensesUrl": "https://choosealicense.com/licenses/gpl-3.0/",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "2.0.0"
+  },
+  "devDependencies": {},
+  "samples": [],
+  "author": {
+    "name": "Rogue",
+    "email": "",
+    "url": ""
+  },
+  "type": "library"
+}

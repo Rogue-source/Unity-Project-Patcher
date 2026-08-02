@@ -1,0 +1,19 @@
+{
+    "name": "com.rogue.unity-project-patcher.Runtime",
+    "rootNamespace": "Rogue.UnityProjectPatcher",
+    "references": [
+        "GUID:febaf25a60dafbd44941357b21678606",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "Quickenshtein.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
