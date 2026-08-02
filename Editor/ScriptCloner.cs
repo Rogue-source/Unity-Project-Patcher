@@ -8,8 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Rogue.CodeGenUtils;
-
+namespace Rogue.CodeGenUtils
+{
 public static class ScriptCloner
 {
 	public static string[] Clone(string assetRipperPath, string dataPath, string[] files, string[] supportedTypes, string fileTemplate, Action<string> log, string[] assemblies)
@@ -120,4 +120,5 @@ public static class ScriptCloner
 		}
 		return InheritsFromType((ITypeSymbol?)(object)typeSymbol.BaseType, type);
 	}
+}
 }

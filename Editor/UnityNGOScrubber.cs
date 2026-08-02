@@ -8,7 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Rogue.CodeGenUtils;
+namespace Rogue.CodeGenUtils
+{
 
 public static class UnityNGOScrubber
 {
@@ -42,16 +43,16 @@ public static class UnityNGOScrubber
 			IEnumerable<MethodDeclarationSyntax> enumerable = root.DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<MethodDeclarationSyntax>().Where(delegate(MethodDeclarationSyntax m)
 			{
 				SyntaxToken identifier = m.Identifier;
-				if (!((SyntaxToken)(ref identifier)).Text.StartsWith("__getTypeName"))
+				if (!identifier.Text.StartsWith("__getTypeName"))
 				{
 					identifier = m.Identifier;
-					if (!((SyntaxToken)(ref identifier)).Text.StartsWith("__initializeVariables"))
+					if (!identifier.Text.StartsWith("__initializeVariables"))
 					{
 						identifier = m.Identifier;
-						if (!((SyntaxToken)(ref identifier)).Text.StartsWith("InitializeRPCS_"))
+						if (!identifier.Text.StartsWith("InitializeRPCS_"))
 						{
 							identifier = m.Identifier;
-							return ((SyntaxToken)(ref identifier)).Text.StartsWith("__rpc_handler_");
+							return (identifier.Text.StartsWith("__rpc_handler_");
 						}
 					}
 				}
@@ -63,13 +64,13 @@ public static class UnityNGOScrubber
 				IEnumerable<string> source = ((SyntaxNode)item).DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<IdentifierNameSyntax>().Select(delegate(IdentifierNameSyntax x)
 				{
 					SyntaxToken identifier = ((SimpleNameSyntax)x).Identifier;
-					return ((SyntaxToken)(ref identifier)).Text;
+					return identifier.Text;
 				});
 				ClassDeclarationSyntax val2 = item;
 				if (source.Contains("INetworkSerializable") && !((SyntaxNode)item).DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<MethodDeclarationSyntax>().Any(delegate(MethodDeclarationSyntax x)
 				{
 					SyntaxToken identifier = x.Identifier;
-					return ((SyntaxToken)(ref identifier)).Text == "NetworkSerialize";
+					return identifier.Text == "NetworkSerialize";
 				}))
 				{
 					MethodDeclarationSyntax val3 = SyntaxFactory.MethodDeclaration((TypeSyntax)(object)SyntaxFactory.PredefinedType(SyntaxFactory.Token((SyntaxKind)8318)), "NetworkSerialize").WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token((SyntaxKind)8343))).WithTypeParameterList(SyntaxFactory.TypeParameterList(SyntaxFactory.SingletonSeparatedList<TypeParameterSyntax>(SyntaxFactory.TypeParameter("T"))))
@@ -84,7 +85,7 @@ public static class UnityNGOScrubber
 					if (!((SyntaxNode)item).DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<MethodDeclarationSyntax>().Any(delegate(MethodDeclarationSyntax x)
 					{
 						SyntaxToken identifier = x.Identifier;
-						return ((SyntaxToken)(ref identifier)).Text == "MoveNext";
+						return identifier.Text == "MoveNext";
 					}))
 					{
 						MethodDeclarationSyntax val4 = SyntaxFactory.MethodDeclaration((TypeSyntax)(object)SyntaxFactory.PredefinedType(SyntaxFactory.Token((SyntaxKind)8318)), "MoveNext").WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token((SyntaxKind)8343))).WithBody(SyntaxFactory.Block(SyntaxFactory.SingletonList<StatementSyntax>((StatementSyntax)(object)SyntaxFactory.ThrowStatement((ExpressionSyntax)(object)SyntaxFactory.ObjectCreationExpression((TypeSyntax)(object)SyntaxFactory.IdentifierName("System.NotImplementedException")).WithArgumentList(SyntaxFactory.ArgumentList(default(SeparatedSyntaxList<ArgumentSyntax>)))))))
@@ -94,7 +95,7 @@ public static class UnityNGOScrubber
 					if (!((SyntaxNode)item).DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<MethodDeclarationSyntax>().Any(delegate(MethodDeclarationSyntax x)
 					{
 						SyntaxToken identifier = x.Identifier;
-						return ((SyntaxToken)(ref identifier)).Text == "SetStateMachine";
+						return identifier.Text == "SetStateMachine";
 					}))
 					{
 						MethodDeclarationSyntax val5 = SyntaxFactory.MethodDeclaration((TypeSyntax)(object)SyntaxFactory.PredefinedType(SyntaxFactory.Token((SyntaxKind)8318)), "SetStateMachine").WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token((SyntaxKind)8343))).WithParameterList(SyntaxFactory.ParameterList(SyntaxFactory.SingletonSeparatedList<ParameterSyntax>(SyntaxFactory.Parameter(SyntaxFactory.Identifier("stateMachine")).WithType((TypeSyntax)(object)SyntaxFactory.IdentifierName("IAsyncStateMachine")))))
@@ -136,16 +137,16 @@ public static class UnityNGOScrubber
 		IEnumerable<MethodDeclarationSyntax> enumerable = root.DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<MethodDeclarationSyntax>().Where(delegate(MethodDeclarationSyntax m)
 		{
 			SyntaxToken identifier = m.Identifier;
-			if (!((SyntaxToken)(ref identifier)).Text.StartsWith("__getTypeName"))
+			if (!identifier.Text.StartsWith("__getTypeName"))
 			{
 				identifier = m.Identifier;
-				if (!((SyntaxToken)(ref identifier)).Text.StartsWith("__initializeVariables"))
+				if (!identifier.Text.StartsWith("__initializeVariables"))
 				{
 					identifier = m.Identifier;
-					if (!((SyntaxToken)(ref identifier)).Text.StartsWith("InitializeRPCS_"))
+					if (!identifier.Text.StartsWith("InitializeRPCS_"))
 					{
 						identifier = m.Identifier;
-						return ((SyntaxToken)(ref identifier)).Text.StartsWith("__rpc_handler_");
+						return identifier.Text.StartsWith("__rpc_handler_");
 					}
 				}
 			}
@@ -221,7 +222,7 @@ public static class UnityNGOScrubber
 				if (root.DescendantNodes((Func<SyntaxNode, bool>)null, false).OfType<ClassDeclarationSyntax>().FirstOrDefault(delegate(ClassDeclarationSyntax x)
 				{
 					SyntaxToken identifier = ((BaseTypeDeclarationSyntax)x).Identifier;
-					return ((SyntaxToken)(ref identifier)).Text == "StartOfRound";
+					return identifier.Text == "StartOfRound";
 				}) != null)
 				{
 					text3 = text3.Replace("voiceChatModule.IsMuted = !IngamePlayerSettings.Instance.playerInput.actions.FindAction(\"VoiceButton\").IsPressed() && !GameNetworkManager.Instance.localPlayerController.speakingToWalkieTalkie;", "// voiceChatModule.IsMuted = !IngamePlayerSettings.Instance.playerInput.actions.FindAction(\"VoiceButton\").IsPressed() && !GameNetworkManager.Instance.localPlayerController.speakingToWalkieTalkie;");
@@ -351,7 +352,7 @@ public static class UnityNGOScrubber
 		}
 		string[] obj = new string[5] { "[error] ServerRpc method ", null, null, null, null };
 		SyntaxToken identifier = methodDeclaration.Identifier;
-		obj[1] = ((SyntaxToken)(ref identifier)).Text;
+		obj[1] = identifier.Text;
 		obj[2] = " in ";
 		obj[3] = file;
 		obj[4] = " has no statements";
@@ -445,7 +446,7 @@ public static class UnityNGOScrubber
 		}
 		string[] obj = new string[5] { "[error] Rpc method ", null, null, null, null };
 		SyntaxToken identifier = methodDeclaration.Identifier;
-		obj[1] = ((SyntaxToken)(ref identifier)).Text;
+		obj[1] = identifier.Text;
 		obj[2] = " in ";
 		obj[3] = file;
 		obj[4] = " has no statements";
@@ -462,7 +463,7 @@ public static class UnityNGOScrubber
 		{
 			string[] obj = new string[5] { "[error] ClientRpc method ", null, null, null, null };
 			identifier = methodDeclaration.Identifier;
-			obj[1] = ((SyntaxToken)(ref identifier)).Text;
+			obj[1] = identifier.Text;
 			obj[2] = " in ";
 			obj[3] = file;
 			obj[4] = " has no statements";
@@ -473,7 +474,7 @@ public static class UnityNGOScrubber
 		{
 			string[] obj2 = new string[5] { "[error] ClientRpc method ", null, null, null, null };
 			identifier = methodDeclaration.Identifier;
-			obj2[1] = ((SyntaxToken)(ref identifier)).Text;
+			obj2[1] = identifier.Text;
 			obj2[2] = " in ";
 			obj2[3] = file;
 			obj2[4] = " has less than 2 statements";
@@ -505,4 +506,5 @@ public static class UnityNGOScrubber
 		}
 		return val;
 	}
+}
 }

@@ -2,8 +2,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Rogue.CodeGenUtils;
-
+namespace Rogue.CodeGenUtils
+{
 internal sealed class RemoveCtorMethodCalls : CSharpSyntaxRewriter
 {
     public RemoveCtorMethodCalls()
@@ -23,4 +23,5 @@ internal sealed class RemoveCtorMethodCalls : CSharpSyntaxRewriter
 
         return base.VisitExpressionStatement(node);
     }
+}
 }

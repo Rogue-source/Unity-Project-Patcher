@@ -8,8 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Rogue.CodeGenUtils;
-
+namespace Rogue.CodeGenUtils
+{
 public static class MethodRemoval
 {
     public readonly struct NodeInfo
@@ -54,4 +54,5 @@ public static class MethodRemoval
             File.WriteAllText(file, newRoot.ToFullString());
         }
     }
+}
 }
