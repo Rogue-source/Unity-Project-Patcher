@@ -27,7 +27,8 @@ namespace Rogue.UnityProjectPatcher.AssetRipper {
         public AssetRipperJsonData ConfigurationData => _configurationData;
         public IReadOnlyList<string> FoldersToCopy => _foldersToCopy.Select(x => x.Replace('/', '\\')).ToList();
         public IReadOnlyList<string> FilesToExcludeFromCopy => _filesToExcludeFromCopy.Select(x => x.Replace('/', '\\')).ToList();
-        public IReadOnlyList<string> FoldersToExcludeFromRead => _foldersToExcludeFromRead.Select(x => x.Replace('/', '\\')).ToList();
+       // public IReadOnlyList<string> FoldersToExcludeFromRead => _foldersToExcludeFromRead.Select(x => x.Replace('/', '\\')).ToList(); --OLD ONE--
+        public IReadOnlyList<string> FoldersToExcludeFromScan => _foldersToExcludeFromScan.Select(x => x.Replace('/', '\\')).ToList(); //--NEW RENAMED ONE--
         public IReadOnlyList<string> ProjectSettingFilesToCopy => _projectSettingFilesToCopy.Select(x => x.Replace('/', '\\')).ToList();
         const string defaultBuildUrl = "https://github.com/Rogue-source/AssetRipper/releases/download/v1.0.1/Release-1.0.1.zip";
         public string BuildUrl => string.IsNullOrWhiteSpace(_customBuildUrl) ? defaultBuildUrl : _customBuildUrl;
@@ -110,7 +111,10 @@ namespace Rogue.UnityProjectPatcher.AssetRipper {
             @"Scripts\Unity.Burst.Mathematics",
             @"Scripts\Unity.Jobs",
         };
-        
+
+        [SerializeField]
+private string[] _foldersToExcludeFromScan;
+
         [SerializeField]
         private string[] _projectSettingFilesToCopy = new[] {
             "NavMeshAreas.asset",
