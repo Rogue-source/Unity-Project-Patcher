@@ -113,7 +113,7 @@ namespace Rogue.UnityProjectPatcher.AssetRipper {
         };
 
         [SerializeField]
-private string[] _foldersToExcludeFromScan;
+        private string[] _foldersToExcludeFromCopy = Array.Empty<string>();
 
         [SerializeField]
         private string[] _projectSettingFilesToCopy = new[] {
