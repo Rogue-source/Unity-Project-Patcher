@@ -14,6 +14,7 @@ namespace Rogue.UnityProjectPatcher.Editor.Steps {
             new GenerateGitIgnoreStep(),
             new GenerateReadmeStep(),
             new PackagesInstallerStep(), // recompile
+			new InstallUnityPackagesStep(),
             new CacheProjectCatalogueStep(),
             new AssetRipperStep(),
             new CopyGamePluginsStep(), // recompile

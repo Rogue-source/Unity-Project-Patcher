@@ -38,7 +38,8 @@ namespace Rogue.UnityProjectPatcher {
         public string GameName => _gameName ?? throw new NullReferenceException(nameof(GameName));
         public string GameVersion => _gameVersion ?? throw new NullReferenceException(nameof(GameVersion));
         public PipelineType GamePipeline => _pipelineType;
-        
+		
+        public IReadOnlyList<string> RequiredUnityPackages => _requiredUnityPackages;
         public IReadOnlyList<FolderMapping> DllsToCopy => _dllsToCopy.Where(x => !x.exclude).ToList();
         public IReadOnlyList<string> ScriptDllFoldersToCopy => _scriptDllFoldersToCopy;
         
@@ -77,16 +78,28 @@ namespace Rogue.UnityProjectPatcher {
         [SerializeField] private string[] _scriptDllFoldersToCopy = Array.Empty<string>();
 
         [Header("Packages")]
-        [SerializeField] private string[] _ignoredDllPrefixes = new[] {
-            "System.",
-            "UnityEngine.",
-            "Unity.Services."
-        };
 
-        [SerializeField] private List<FoundPackageInfo> _exactPackagesFound = new List<FoundPackageInfo>();
-        [SerializeField] private List<FoundPackageInfo> _possiblePackagesFound = new List<FoundPackageInfo>();
-        [SerializeField] private List<FoundPackageInfo> _improbablePackagesFound = new List<FoundPackageInfo>();
-        [SerializeField] private List<GitPackageInfo> _gitPackages = new List<GitPackageInfo>();
+[SerializeField]
+private string[] _requiredUnityPackages = Array.Empty<string>();
+
+[SerializeField]
+private string[] _ignoredDllPrefixes = new[] {
+    "System.",
+    "UnityEngine.",
+    "Unity.Services."
+};
+
+[SerializeField]
+private List<FoundPackageInfo> _exactPackagesFound = new();
+
+[SerializeField]
+private List<FoundPackageInfo> _possiblePackagesFound = new();
+
+[SerializeField]
+private List<FoundPackageInfo> _improbablePackagesFound = new();
+
+[SerializeField]
+private List<GitPackageInfo> _gitPackages = new();
 
         private void GetGameName() {
 #if UNITY_EDITOR
