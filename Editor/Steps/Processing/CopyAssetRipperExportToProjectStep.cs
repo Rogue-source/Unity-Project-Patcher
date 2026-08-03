@@ -77,6 +77,7 @@ namespace Rogue.UnityProjectPatcher.Editor.Steps {
         private static IEnumerable<AssetCatalogue.Entry> GetAllowedEntries(AssetCatalogue arAssets, AssetCatalogue projectAssets, AssetRipperSettings settings) {
             var foldersToCopy = settings.FoldersToCopy;
             var filesToExclude = settings.FilesToExcludeFromCopy;
+            var foldersToExclude = settings.FoldersToExcludeFromCopy;
             var filesToExcludePrefix = filesToExclude.Where(x => x.EndsWith("*")).Select(x => x.Substring(0, x.Length - 1)).ToArray();
             filesToExclude = filesToExclude.Except(filesToExcludePrefix).ToList();
             
@@ -92,6 +93,9 @@ namespace Rogue.UnityProjectPatcher.Editor.Steps {
                 if (_ignoreFiles.Any(x => fileName == x)) {
                     continue;
                 }
+                
+                if (foldersToExclude.Any(x => asset.RelativePathToRoot.StartsWith(x)))
+                    continue;
                 
                 if (!foldersToCopy.Any(x => asset.RelativePathToRoot.StartsWith(x))) {
                     continue;
