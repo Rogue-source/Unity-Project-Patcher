@@ -18,7 +18,7 @@ namespace Rogue.UnityProjectPatcher {
 #if UNITY_2020_3_OR_NEWER
         [SerializeField, FolderPath(getRelativePath: false)]
         [Header("Where the game is installed")]
-        [HelpBox(@"This path is absolute to your game folder. Such as: ""C:\Program Files (x86)\Steam\steamapps\common\Lethal Company""")]
+        [HelpBox(@"This path is absolute to your game folder. Such as: ""C:\Program Files (x86)\Steam\steamapps\common\Mine Mogul""")]
         private string? _gameFolderPath;
 
         [SerializeField, FolderPath]
