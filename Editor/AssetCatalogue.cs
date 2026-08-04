@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -75,12 +75,9 @@ namespace Rogue.UnityProjectPatcher.Editor {
                 
                 foreach (var b in scriptEntriesDisk) {
                     var bPath = Path.Combine("Assets", b.RelativePathToRoot);
-                    Debug.Log($"Expected: {rawPath}");
-                    Debug.Log($"Actual:   {bPath}");
                     if (rawPath != bPath) continue;
                     
                     found.Add(new FoundMatch(b, a));
-                    Debug.Log($"Matched script: {a.FullTypeName} -> {b.RelativePathToRoot}");
                     break;
                 }
             });
