@@ -891,7 +891,7 @@ namespace Rogue.UnityProjectPatcher.Editor {
                         
                     var assemblyName = foundClass?.Assembly.GetName().Name;
                     var nestedTypes = foundClass?.GetNestedTypes()
-                        .Select(x => new AssetCatalogue.ScriptEntry(x.FullName ?? "n/a", "n/a", null, x.FullName ?? "n/a", assemblyName ?? "Assembly-CSharp", Array.Empty<AssetCatalogue.ScriptEntry>(), associatedGuids, associatedFileIds, typeof(MonoScript).IsAssignableFrom(x)))
+                        .Select(x => new AssetCatalogue.ScriptEntry(x.FullName ?? "n/a", "n/a", null, x.FullName ?? "n/a", assemblyName ?? "Assembly-CSharp", Array.Empty<AssetCatalogue.ScriptEntry>(), associatedGuids.ToArray(), associatedFileIds, typeof(MonoScript).IsAssignableFrom(x)))
                         .ToArray() ?? Array.Empty<AssetCatalogue.ScriptEntry>();
                     
                     var typeName = foundClass?.FullName ?? assetType.FullName ?? "n/a";
