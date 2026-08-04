@@ -78,6 +78,7 @@ namespace Rogue.UnityProjectPatcher.Editor {
                     if (rawPath != bPath) continue;
                     
                     found.Add(new FoundMatch(b, a));
+                    Debug.Log($"Matched script: {a.FullTypeName} -> {b.RelativePathToRoot}");
                     break;
                 }
             });
