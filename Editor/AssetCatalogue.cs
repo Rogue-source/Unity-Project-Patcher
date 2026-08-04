@@ -71,7 +71,7 @@ namespace Rogue.UnityProjectPatcher.Editor {
             var each = Parallel.ForEach(scriptEntriesProject, a => {
                 // this becomes the path in the disk folder
                 var rawPath = a.FullTypeName?.Replace('.', Path.DirectorySeparatorChar);
-                rawPath = Path.Combine("Assets", "Scripts", a.AssemblyName ?? string.Empty, $"{rawPath}.cs");
+                rawPath = Path.Combine("Assets", "MineMogul", "Game", "Scripts", a.AssemblyName ?? string.Empty, $"{rawPath}.cs");
                 
                 foreach (var b in scriptEntriesDisk) {
                     var bPath = Path.Combine("Assets", b.RelativePathToRoot);
