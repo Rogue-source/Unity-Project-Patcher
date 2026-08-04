@@ -844,16 +844,41 @@ namespace Rogue.UnityProjectPatcher.Editor {
                     var found = AssetDatabase.TryGetGUIDAndLocalFileIdentifier(obj, out var guid, out long fileId);
                     if (!found) continue;
                     
-                    var associatedGuids = GetAssociatedGuids(assetPathNoAssets, fullPath, null).ToArray();
-                    var associatedFileIds = GetFileIdsFromProjectAsset(path).Select(x => x.ToString()).ToArray();
-                    
-                    if (assetType != typeof(MonoScript)) {
-                        if (assetType == typeof(Shader)) {
-                            var shaderType = GetShaderName(fullPath, null);
-                            entries.Add(new AssetCatalogue.ShaderEntry(properPath, guid, fileId, shaderType, associatedGuids, associatedFileIds));
-                        } else {
-                            entries.Add(new AssetCatalogue.Entry(assetType.FullName, properPath, guid, fileId, associatedGuids, associatedFileIds));
+                    var associatedGuids = GetAssociatedGuids(assetPathNoAssets, fullPath, null).ToList();
+
+                    foreach (var dep in AssetDatabase.GetDependencies(path, true))
+                        {
+                            if (dep == path)
+                            continue;
+
+                            var depGuid = AssetDatabase.AssetPathToGUID(dep);
+
+                            if (!string.IsNullOrEmpty(depGuid) && !associatedGuids.Contains(depGuid))
+                                        associatedGuids.Add(depGuid);
                         }
+
+                    var associatedFileIds = GetFileIdsFromProjectAsset(path).Select(x => x.ToString()).ToArray();
+
+                    if (assetType != typeof(MonoScript)) {
+                    if (assetType == typeof(Shader)) {
+                        var shaderType = GetShaderName(fullPath, null);
+                        entries.Add(new AssetCatalogue.ShaderEntry(
+                        properPath,
+                        guid,
+                        fileId,
+                        shaderType,
+                        associatedGuids.ToArray(),
+                        associatedFileIds));
+                     } else {
+                        entries.Add(new AssetCatalogue.Entry(
+                       assetType.FullName,
+                       properPath,
+                        guid,
+                        fileId,
+                        associatedGuids.ToArray(),
+                        associatedFileIds));
+                    }
+
                         continue;
                     }
                     
@@ -871,7 +896,16 @@ namespace Rogue.UnityProjectPatcher.Editor {
                     
                     var typeName = foundClass?.FullName ?? assetType.FullName ?? "n/a";
                     var isMono = assetType != null ? typeof(MonoScript).IsAssignableFrom(assetType) : false;
-                    entries.Add(new AssetCatalogue.ScriptEntry(properPath, guid, fileId, foundClass?.FullName ?? assetType.FullName ?? "n/a", assemblyName ?? "Assembly-CSharp", nestedTypes, associatedGuids, associatedFileIds, isMono));
+                    entries.Add(new AssetCatalogue.ScriptEntry(
+                    properPath,
+                    guid,
+                    fileId,
+                    foundClass?.FullName ?? assetType.FullName ?? "n/a",
+                    assemblyName ?? "Assembly-CSharp",
+                    nestedTypes,
+                    associatedGuids.ToArray(),
+                    associatedFileIds,
+                    isMono));
                         
                     usedTypes.Add(typeName);
                         
